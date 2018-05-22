@@ -2,10 +2,10 @@
 import axios from 'axios';
 
 
-export const searchMovies = function(){
-    axios.get("http://www.omdbapi.com/?s=future&apikey=4a24f274")
+export const searchMovies = function(search_term, callback){
+    axios.get("http://www.omdbapi.com/?s="+search_term+"&apikey=4a24f274")
         .then(function (response){
-            console.log(response);
+            callback(response);
         })
         .catch(function (error){
             console.log(error);

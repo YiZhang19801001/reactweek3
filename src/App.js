@@ -11,13 +11,28 @@ class App extends Component {
   constructor(props){
     super(props);
 
-    MovieService.searchMovies();
+    this.state={
+      results:[]
+    }
   }
+
+  onSearch(search_term){
+    let app=this;
+    MovieService.searchMovies(
+      search_term,
+      function(response){
+        app.setState({results:response.data.Search});
+        console.log(response.data.Search);
+      }
+    );
+  }
+
   render() {
+
     return (
       <div>
-        <SearchComponent />
-        <ResultsComponent />
+        <SearchComponent onSearch={this.onSearch.bind(this)} />
+        <ResultsComponent movies={this.state.results}/>
       </div>
     );
   }
